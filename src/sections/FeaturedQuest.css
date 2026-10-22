@@ -1,0 +1,621 @@
+.quest__head {
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+
+.quest__head .section-head {
+  max-width: 820px;
+}
+
+/* ---------- The quest card ---------- */
+
+.qcard {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--s-2);
+  padding: var(--s-2);
+  border-radius: calc(var(--r-panel) + 8px);
+  background: var(--ink-raised);
+}
+
+.qcard__brief {
+  display: grid;
+  align-content: start;
+  gap: var(--s-6);
+  padding: clamp(20px, 3vw, 40px);
+}
+
+.qcard__title {
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.1;
+}
+
+.qcard__challenge {
+  color: var(--cream-72);
+  max-width: 48ch;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--ink-line);
+}
+
+.chips li {
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+  background: rgba(245, 240, 230, 0.08);
+  transition:
+    background-color var(--dur-enter) var(--ease-out),
+    color var(--dur-enter) var(--ease-out);
+}
+
+.chips li:hover {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.js .qcard .chips li {
+  opacity: 0;
+  scale: 0.8;
+  transition:
+    opacity 300ms var(--ease-out),
+    scale var(--spring-dur) var(--spring),
+    background-color var(--dur-enter) var(--ease-out),
+    color var(--dur-enter) var(--ease-out);
+  transition-delay: calc(400ms + var(--d) * 50ms), calc(400ms + var(--d) * 50ms), 0s, 0s;
+}
+
+.js .qcard.is-in .chips li {
+  opacity: 1;
+  scale: 1;
+}
+
+.deliver {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-3);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--ink-line);
+}
+
+.deliver li {
+  display: grid;
+  gap: var(--s-2);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: var(--cream-72);
+}
+
+/* Tiny artefacts instead of a list of nouns. */
+.deliver__thumb {
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  aspect-ratio: 4 / 3;
+  padding: 10px;
+  border-radius: 10px;
+  transition: translate var(--spring-dur) var(--spring), rotate var(--spring-dur) var(--spring);
+}
+
+.deliver li:hover .deliver__thumb {
+  translate: 0 -4px;
+  rotate: -2deg;
+}
+
+.deliver__thumb i {
+  display: block;
+  border-radius: 4px;
+}
+
+.deliver__thumb--demo { background: var(--cream); }
+.deliver__thumb--demo i:first-child { width: 55%; height: 10px; justify-self: end; background: var(--violet); }
+.deliver__thumb--demo i:last-child { width: 80%; height: 18px; background: var(--lime); }
+
+.deliver__thumb--eval {
+  grid-template-columns: repeat(3, 12px);
+  align-content: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--cream);
+}
+.deliver__thumb--eval i { width: 12px; height: 12px; border-radius: 50%; background: var(--violet); }
+.deliver__thumb--eval i:nth-child(5) { background: none; box-shadow: inset 0 0 0 2px var(--violet); }
+.deliver__thumb--eval i:nth-child(6) { border-radius: 2px; background: var(--ink); scale: 0.8; }
+
+.deliver__thumb--doc { background: var(--violet-deep); }
+.deliver__thumb--doc i { height: 4px; background: var(--cream); }
+.deliver__thumb--doc i:first-child { width: 70%; height: 8px; }
+.deliver__thumb--doc i:last-child { width: 50%; }
+
+/* ---------- Inside the quest ---------- */
+
+.qcard__inside {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  border-radius: var(--r-panel);
+  background: var(--ink);
+  min-width: 0;
+}
+
+.steps {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: var(--r-btn);
+  background: var(--ink-raised);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.steps__indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--iw, 0);
+  transform: translateX(var(--ix, 0));
+  border-radius: 12px;
+  background: var(--lime);
+  transition:
+    transform var(--spring-dur) var(--spring),
+    width var(--spring-dur) var(--spring);
+}
+
+.steps__tab {
+  position: relative;
+  z-index: 1;
+  flex: 1 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--cream-72);
+  white-space: nowrap;
+  transition: color var(--dur-enter) var(--ease-out);
+}
+
+.steps__tab:hover {
+  color: var(--cream);
+}
+
+.steps__tab[aria-selected="true"] {
+  color: var(--ink);
+}
+
+.steps__tab:focus-visible {
+  outline-offset: -2px;
+}
+
+.steps__n {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0;
+  box-shadow: inset 0 0 0 1px currentColor;
+  transition: background-color var(--dur-enter) var(--ease-out);
+}
+
+/* Steps behind you read as done. */
+.steps__tab.is-past .steps__n {
+  background: var(--violet);
+  box-shadow: none;
+  color: var(--cream);
+}
+
+/* ---------- Step panel ---------- */
+
+.step {
+  display: grid;
+  animation: step-in 420ms var(--ease-out) both;
+}
+
+.step:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Enters from the side you travelled toward. */
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--dir, 1) * 28px));
+  }
+}
+
+/* ---------- Mocks ---------- */
+
+.mock {
+  position: relative;
+  min-height: 340px;
+  padding: var(--s-5);
+  border-radius: var(--r-btn);
+  background: var(--ink-raised);
+}
+
+/* Shared entrance for listed things inside a mock. */
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Frame */
+.mock--frame {
+  display: grid;
+  align-content: center;
+}
+
+.docsets {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.docset {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--cream-72);
+  animation: item-in 500ms var(--ease-out) calc(var(--d) * 70ms) both;
+  transition:
+    color 300ms var(--ease-out),
+    box-shadow var(--spring-dur) var(--spring),
+    scale var(--spring-dur) var(--spring);
+}
+
+.docset.is-on {
+  color: var(--cream);
+  box-shadow: inset 0 0 0 2px var(--lime);
+  scale: 1.02;
+}
+
+.docset__stack {
+  position: relative;
+  height: 28px;
+}
+
+.docset__stack span {
+  position: absolute;
+  width: 18px;
+  height: 22px;
+  border-radius: 3px;
+  background: var(--cream-48);
+  transition: translate var(--bouncy-dur) var(--bouncy), background-color 300ms;
+}
+
+.docset__stack span:nth-child(1) { left: 0; top: 0; opacity: 0.4; }
+.docset__stack span:nth-child(2) { left: 4px; top: 3px; opacity: 0.7; }
+.docset__stack span:nth-child(3) { left: 8px; top: 6px; background: var(--cream); }
+.docset.is-on .docset__stack span:nth-child(3) { background: var(--lime); translate: 2px -3px; }
+.docset.is-on .docset__stack span:nth-child(1) { translate: -2px 1px; }
+
+.docset__pages {
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--cream-48);
+}
+
+/* Learn: each source reads through, one after another. */
+.mock--learn {
+  display: grid;
+  align-content: center;
+}
+
+.learnrows {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.learnrows li {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border-radius: 12px;
+  background: var(--ink);
+  animation: item-in 500ms var(--ease-out) calc(var(--d) * 90ms) both;
+}
+
+.learnrows__n {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-tag);
+  font-size: 12px;
+}
+
+.learnrows__n--1 { background: var(--cream); color: var(--ink); }
+.learnrows__n--2 { background: var(--violet-deep); color: var(--cream); }
+.learnrows__n--3 { background: var(--lime); color: var(--ink); }
+
+.learnrows__body {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.learnrows__bar {
+  height: 3px;
+  border-radius: 2px;
+  background: var(--lime);
+  transform-origin: left;
+  animation: read 900ms var(--ease-out) calc(400ms + var(--d) * 650ms) both;
+}
+
+@keyframes read {
+  from { transform: scaleX(0); }
+}
+
+.learnrows__src {
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--cream-48);
+}
+
+/* Build: a conversation that actually happens. */
+.chat {
+  display: grid;
+  align-content: start;
+  gap: var(--s-3);
+}
+
+.chat__q,
+.chat__a,
+.typing {
+  animation: bubble-in var(--spring-dur) var(--spring) both;
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    scale: 0.9;
+    translate: 0 8px;
+  }
+}
+
+.chat__q {
+  justify-self: end;
+  max-width: 80%;
+  padding: var(--s-2) var(--s-3);
+  border-radius: 14px 14px 4px 14px;
+  background: var(--violet-deep);
+  color: var(--cream);
+  transform-origin: bottom right;
+}
+
+.chat__a {
+  justify-self: start;
+  display: grid;
+  gap: var(--s-2);
+  max-width: 86%;
+  padding: var(--s-3);
+  border-radius: 14px 14px 14px 4px;
+  background: var(--ink);
+  transform-origin: bottom left;
+}
+
+.chat__cite {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(200, 243, 107, 0.14);
+  color: var(--lime);
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0;
+  animation: cite-flash 1200ms var(--ease-out) 250ms both;
+}
+
+/* The source lights up as it's attached. */
+@keyframes cite-flash {
+  0% { opacity: 0; background: var(--lime); color: var(--ink); }
+  30% { opacity: 1; background: var(--lime); color: var(--ink); }
+}
+
+.chat__a--none p {
+  color: var(--cream-72);
+}
+
+.typing {
+  justify-self: start;
+  display: inline-flex;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 14px 14px 14px 4px;
+  background: var(--ink);
+}
+
+.typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cream-48);
+  animation: typing 900ms ease-in-out infinite;
+}
+
+.typing i:nth-child(2) { animation-delay: 120ms; }
+.typing i:nth-child(3) { animation-delay: 240ms; }
+
+@keyframes typing {
+  0%, 60%, 100% { translate: 0 0; opacity: 0.5; }
+  30% { translate: 0 -4px; opacity: 1; }
+}
+
+/* Test: rows land, then each verdict stamps in. */
+.evals {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.evals tr {
+  animation: item-in 450ms var(--ease-out) calc(var(--d) * 110ms) both;
+}
+
+.evals td {
+  padding: var(--s-3) var(--s-2) var(--s-3) 0;
+  border-top: 1px solid var(--ink-line);
+}
+
+.evals tr:first-child td {
+  border-top: 0;
+}
+
+.evals__src {
+  color: var(--cream-72);
+  white-space: nowrap;
+}
+
+.verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-size: 12px;
+  letter-spacing: 0;
+  animation: stamp var(--bouncy-dur) var(--bouncy) calc(250ms + var(--d) * 110ms) both;
+}
+
+@keyframes stamp {
+  from { opacity: 0; scale: 0.4; }
+}
+
+.verdict::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.verdict--pass::before { background: var(--lime); }
+.verdict--part::before { box-shadow: inset 0 0 0 2px var(--lime); }
+.verdict--fail { color: var(--danger); }
+.verdict--fail::before { background: var(--danger); border-radius: 2px; }
+
+/* The failing row gets marked, not hidden. */
+.evals tr:has(.verdict--fail) td {
+  background: rgba(255, 138, 122, 0.08);
+}
+
+.evals tr:has(.verdict--fail) td:first-child {
+  box-shadow: inset 3px 0 0 var(--danger);
+  padding-left: var(--s-3);
+}
+
+/* Write-up: the memo lands on the desk. */
+.mock--write {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(96, 95, 226, 0.5), transparent 45%),
+    var(--ink-raised);
+}
+
+.memo {
+  display: grid;
+  gap: var(--s-3);
+  width: min(100%, 380px);
+  padding: var(--s-5);
+  border-radius: 6px;
+  background: var(--cream);
+  color: var(--ink);
+  rotate: -1.5deg;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  animation: memo-drop var(--bouncy-dur) var(--bouncy) both;
+}
+
+@keyframes memo-drop {
+  from {
+    opacity: 0;
+    translate: 0 -40px;
+    rotate: 6deg;
+    scale: 1.04;
+  }
+}
+
+.memo__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.memo p {
+  color: var(--ink-72);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.memo__list {
+  display: grid;
+  gap: 2px;
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--ink-12);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.memo__list li {
+  animation: item-in 400ms var(--ease-out) calc(450ms + var(--d) * 120ms) both;
+}
+
+.memo__list b {
+  font-weight: 600;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 960px) {
+  .qcard {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .qcard__inside {
+    padding: var(--s-2);
+  }
+  .mock {
+    padding: var(--s-3);
+  }
+  .steps__tab {
+    padding: 8px 10px;
+  }
+  .steps__n,
+  .evals__src,
+  .learnrows__src,
+  .docset__pages {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing i {
+    animation: none;
+  }
+}

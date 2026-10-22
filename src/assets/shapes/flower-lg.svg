@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Repeat group 1">
+<g id="Repeat group 1_inner" data-figma-trr="r8u0-0f">
+<path id="Rectangle 5808" d="M112.686 26.9687C110.973 17.178 118.507 8.21067 128.447 8.21067H191.864C201.698 8.21067 209.205 16.9994 207.667 26.7128L177.544 216.964C174.718 234.814 149.095 235.022 145.98 217.22L112.686 26.9687Z" fill="#605FE2"/>
+</g>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(160 -66.2742) rotate(45)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(320 6.99382e-06) rotate(90)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(386.274 160) rotate(135)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(320 320) rotate(-180)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(160 386.274) rotate(-135)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(-1.90798e-06 320) rotate(-90)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(-66.2742 160) rotate(-45)"/>
+</g>
+</svg>

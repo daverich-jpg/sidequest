@@ -1,0 +1,199 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--t-body);
+  line-height: 24px;
+  letter-spacing: var(--track);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4, p, ul, ol, figure {
+  margin: 0;
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+img, svg {
+  display: block;
+}
+
+button, input {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.on-light :focus-visible {
+  outline-color: var(--violet-ink);
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -64px;
+  z-index: 100;
+  padding: 8px 12px;
+  border-radius: var(--r-btn);
+  background: var(--lime);
+  color: var(--ink);
+  text-decoration: none;
+  transition: top var(--dur-enter) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  top: 16px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Layout ---------- */
+
+/* Every section is a frame like the hero's: 20px radius, 8px apart. */
+.panel {
+  position: relative;
+  margin: 0 8px 8px;
+  border-radius: var(--r-panel);
+  overflow: clip;
+  padding: var(--section-y) var(--gutter);
+}
+
+.panel--ink { background: var(--ink); color: var(--cream); }
+.panel--cream { background: var(--cream); color: var(--ink); }
+.panel--lime { background: var(--lime); color: var(--ink); }
+
+.container {
+  width: 100%;
+  max-width: var(--content);
+  margin: 0 auto;
+}
+
+/* ---------- Type ---------- */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: var(--track);
+  text-wrap: balance;
+}
+
+.d1 { font-size: var(--d1); line-height: 1.0625; }
+.d2 { font-size: var(--d2); line-height: 1.04; }
+.d3 { font-size: var(--d3); line-height: 1.07; }
+.d4 { font-size: var(--d4); line-height: 1.2; }
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 26px;
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+
+.muted { color: var(--cream-72); }
+.on-light .muted { color: var(--ink-72); }
+
+.small {
+  font-size: var(--t-small);
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+/* ---------- Reveal on scroll ---------- */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Word-by-word headline rise (see <Rise>). */
+.rise {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+  vertical-align: top;
+}
+
+.js .rise__in {
+  display: inline-block;
+  transform: translateY(108%);
+  transition: transform 1000ms var(--ease-out);
+  transition-delay: calc(var(--w, 0) * 45ms + 60ms);
+}
+
+.js .is-in .rise__in,
+.js .is-in.rise__in {
+  transform: none;
+}
+
+/* When a headline holds rising words, the block itself shouldn't also drift. */
+.js .reveal:has(.rise) {
+  transform: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .rise__in { transform: none; transition: none; }
+  .js .reveal {
+    transform: none;
+    transition: opacity 200ms linear;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    margin: 0 4px 4px;
+    border-radius: 16px;
+  }
+}

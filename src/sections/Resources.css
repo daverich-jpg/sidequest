@@ -1,0 +1,363 @@
+.resources__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 7vw, 112px);
+  align-items: start;
+}
+
+.resources__aside {
+  position: sticky;
+  top: 48px;
+  display: grid;
+  gap: var(--s-10);
+}
+
+/* ---------- Loadout ---------- */
+
+.loadout {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-2);
+  border-radius: calc(var(--r-panel) + 8px);
+  background: var(--cream-sunk);
+}
+
+.loadout__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-4) var(--s-4) var(--s-3);
+}
+
+.loadout__step {
+  font-size: var(--d4);
+  line-height: 1.2;
+}
+
+.loadout__meter {
+  display: flex;
+  gap: 4px;
+}
+
+.loadout__meter span {
+  position: relative;
+  width: 32px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--ink-12);
+  overflow: hidden;
+}
+
+.loadout__meter span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--violet);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms var(--ease-out);
+}
+
+/* Fills the moment the flying dot lands. */
+.loadout__meter span.is-on::after {
+  transform: scaleX(1);
+  transition: transform var(--spring-dur) var(--spring) 560ms;
+}
+
+.fly-dot {
+  position: fixed;
+  z-index: 50;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--violet);
+  pointer-events: none;
+}
+
+/* ---------- Tickets ---------- */
+
+.tickets {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.ticket {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: var(--s-5);
+  align-items: center;
+  padding: var(--s-5);
+  border-radius: var(--r-panel);
+  background: var(--cream);
+  transition:
+    background-color 300ms var(--ease-out),
+    translate var(--spring-dur) var(--spring);
+}
+
+.ticket:hover {
+  translate: 4px 0;
+}
+
+.js .loadout .ticket {
+  opacity: 0;
+  translate: 0 16px;
+  transition:
+    opacity 500ms var(--ease-out) calc(200ms + var(--d) * 90ms),
+    translate var(--soft-dur) var(--soft) calc(200ms + var(--d) * 90ms),
+    background-color 300ms var(--ease-out);
+}
+
+.js .loadout.is-in .ticket {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.js .loadout.is-in .ticket:hover {
+  translate: 4px 0;
+  transition-delay: 0s;
+}
+
+.ticket__kind {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-tag);
+  fill: currentColor;
+}
+
+.ticket--foundation .ticket__kind { background: var(--ink); color: var(--cream); }
+.ticket--walkthrough .ticket__kind { background: var(--violet-deep); color: var(--cream); }
+.ticket--reference .ticket__kind { background: var(--lime); color: var(--ink); }
+
+.ticket__body {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.ticket__title {
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.ticket__title a {
+  text-decoration: none;
+  background-image: linear-gradient(var(--violet), var(--violet));
+  background-size: 0 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 300ms var(--ease-out);
+}
+
+.ticket__title a:hover,
+.ticket__title a:focus-visible {
+  background-size: 100% 2px;
+}
+
+.ticket__arrow {
+  display: inline-block;
+  margin-left: 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--violet-ink);
+  transition: translate var(--spring-dur) var(--spring);
+}
+
+.ticket__title a:hover .ticket__arrow {
+  translate: 2px -2px;
+}
+
+.ticket__src {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: var(--ink-72);
+}
+
+/* Checkbox */
+.ticket__check {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color var(--dur-enter) var(--ease-out);
+}
+
+.ticket__check:hover {
+  background: var(--ink-06);
+}
+
+.ticket__check input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.ticket__check:has(input:focus-visible) {
+  outline: 2px solid var(--violet-ink);
+  outline-offset: 2px;
+}
+
+.ticket__box {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1.5px var(--ink-72);
+  transition:
+    background-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    scale var(--bouncy-dur) var(--bouncy);
+}
+
+.ticket__check:active .ticket__box {
+  scale: 0.85;
+}
+
+.ticket__box path {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+  transition: stroke-dashoffset 280ms var(--ease-out) 60ms;
+}
+
+.ticket.is-done .ticket__box {
+  background: var(--violet-deep);
+  box-shadow: none;
+}
+
+.ticket.is-done .ticket__box path {
+  stroke-dashoffset: 0;
+}
+
+.ticket.is-done {
+  background: #f8f5ee;
+}
+
+/* ---------- Unlock ---------- */
+
+.unlock {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-5) var(--s-3) var(--s-3);
+  border-radius: var(--r-panel);
+  background: var(--ink-06);
+  color: var(--ink-72);
+  text-decoration: none;
+  cursor: default;
+  transition:
+    background-color 400ms var(--ease-out),
+    color 400ms var(--ease-out);
+}
+
+.unlock__tile {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-tag);
+  background: var(--ink-12);
+  color: rgba(29, 31, 46, 0.35);
+  transition:
+    background-color 400ms var(--ease-out),
+    color 400ms var(--ease-out);
+}
+
+.unlock__glyph {
+  transition: rotate 1200ms var(--bouncy);
+}
+
+.unlock__next {
+  font-size: 16px;
+}
+
+.unlock__arrow {
+  font-size: 18px;
+  opacity: 0;
+  translate: -8px 0;
+  transition:
+    opacity var(--dur-enter) var(--ease-out),
+    translate var(--spring-dur) var(--spring);
+}
+
+/* The prestige: all three done → the next step lights up and turns. */
+.unlock.is-ready {
+  background: var(--ink);
+  color: var(--cream);
+  cursor: pointer;
+  animation: unlock-pop var(--bouncy-dur) var(--bouncy);
+}
+
+@keyframes unlock-pop {
+  0% { scale: 0.97; }
+  100% { scale: 1; }
+}
+
+.unlock.is-ready .unlock__tile {
+  background: var(--lime);
+  color: var(--violet);
+}
+
+.unlock.is-ready .unlock__glyph {
+  rotate: 360deg;
+}
+
+.unlock.is-ready .unlock__arrow {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.unlock.is-ready:hover .unlock__arrow {
+  translate: 4px 0;
+}
+
+.unlock.is-ready:focus-visible {
+  outline-color: var(--violet-ink);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 960px) {
+  .resources__grid {
+    grid-template-columns: 1fr;
+  }
+  .resources__aside {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .ticket {
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    gap: var(--s-3);
+    padding: var(--s-3);
+  }
+  .ticket__kind {
+    width: 40px;
+    height: 40px;
+  }
+  .ticket__title {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .loadout__head {
+    padding: var(--s-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unlock__glyph { transition: none; }
+}

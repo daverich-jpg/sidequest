@@ -1,0 +1,225 @@
+.method__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--s-10);
+  align-items: end;
+  margin-bottom: clamp(56px, 8vw, 112px);
+}
+
+.method__lede {
+  justify-self: end;
+  max-width: 34ch;
+}
+
+/* ---------- The path ---------- */
+
+.method__path {
+  --step: 48px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.2fr);
+  column-gap: var(--s-6);
+}
+
+.method__stages {
+  display: contents;
+}
+
+.method__svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.method__track {
+  fill: none;
+  stroke: var(--ink-12);
+  stroke-width: 2;
+  stroke-dasharray: 2 8;
+  stroke-linecap: round;
+}
+
+.method__puck {
+  fill: var(--violet);
+  stroke: var(--cream);
+  stroke-width: 3;
+  transition: opacity 200ms linear;
+}
+
+.method__fill {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 1;
+}
+
+/* Climbing: each stage sits one step higher than the last. */
+.stage {
+  position: relative;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--s-2);
+  padding-top: calc(var(--step) * (4 - var(--n)));
+}
+
+.stage--1 { --n: 1; }
+.stage--2 { --n: 2; }
+.stage--3 { --n: 3; }
+.stage--4 { --n: 4; }
+
+/* The node is the hero's quest box: off = sunk, on = lime with a violet glyph. */
+.stage__node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: var(--s-4);
+  border-radius: var(--r-tag);
+  background: var(--cream-sunk);
+  color: rgba(29, 31, 46, 0.28);
+  transition:
+    background-color 400ms var(--ease-out),
+    color 400ms var(--ease-out);
+}
+
+.stage__glyph,
+.stage__quest .shape {
+  transition: rotate var(--bouncy-dur) var(--bouncy);
+}
+
+.stage.is-on .stage__node {
+  background: var(--lime);
+  color: var(--violet);
+  animation: node-pop var(--bouncy-dur) var(--bouncy);
+}
+
+/* The line arrives: the node takes the hit and springs back. */
+@keyframes node-pop {
+  0% { scale: 0.86; }
+  100% { scale: 1; }
+}
+
+/* Each glyph turns by its own symmetry, so it lands looking unchanged. */
+.stage--2.is-on .stage__glyph { rotate: 45deg; }
+.stage--3.is-on .stage__glyph { rotate: 90deg; }
+.stage--4.is-on .stage__glyph { rotate: -360deg; }
+
+.stage__quest {
+  display: flex;
+  gap: 3px;
+}
+
+.stage__title {
+  max-width: 9em;
+}
+
+/* ---------- Outcome: three tiny artefacts, fanned like prints ---------- */
+
+.outcome {
+  position: relative;
+  z-index: 1;
+  align-self: start;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border-radius: var(--r-panel);
+  background: var(--ink);
+  opacity: 0.35;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.outcome.is-on {
+  opacity: 1;
+}
+
+.outcome__card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  aspect-ratio: 3 / 4;
+  padding: 10px 8px;
+  border-radius: 8px;
+  background: var(--ink-raised);
+  translate: 0 14px;
+  rotate: 0deg;
+  transition:
+    translate var(--bouncy-dur) var(--bouncy),
+    rotate var(--bouncy-dur) var(--bouncy);
+}
+
+.outcome.is-on .outcome__card { translate: 0 0; }
+.outcome.is-on .outcome__card--demo { rotate: -4deg; transition-delay: 0ms; }
+.outcome.is-on .outcome__card--eval { rotate: 2deg; transition-delay: 80ms; }
+.outcome.is-on .outcome__card--doc { rotate: -1deg; transition-delay: 160ms; }
+
+.outcome__card:hover {
+  rotate: 0deg !important;
+  translate: 0 -6px !important;
+}
+
+.outcome__card--demo { background: var(--cream); }
+.o-bubble {
+  display: block;
+  height: 12px;
+  border-radius: 6px;
+}
+.o-bubble--q { width: 60%; justify-self: end; background: var(--violet); }
+.o-bubble--a { width: 85%; height: 22px; background: var(--cream-sunk); }
+.o-cite { display: block; width: 40%; height: 7px; border-radius: 3px; background: var(--lime); }
+
+.outcome__card--eval {
+  grid-template-columns: repeat(4, 1fr);
+  align-content: center;
+  gap: 4px;
+  background: var(--cream);
+}
+.o-dot { display: block; aspect-ratio: 1; border-radius: 50%; background: var(--violet); }
+.o-dot--part { background: none; box-shadow: inset 0 0 0 2px var(--violet); }
+.o-dot--miss { border-radius: 2px; background: var(--ink); scale: 0.8; }
+
+.outcome__card--doc { background: var(--violet); }
+.o-line { display: block; height: 4px; border-radius: 2px; background: var(--cream); opacity: 0.8; }
+.o-line--h { height: 10px; width: 80%; opacity: 1; margin-bottom: 4px; }
+.o-line--s { width: 55%; }
+
+/* ---------- Vertical journey below 1000px ---------- */
+
+@media (max-width: 1000px) {
+  .method__head {
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+  }
+  .method__lede {
+    justify-self: start;
+  }
+  .method__path {
+    grid-template-columns: 1fr;
+    row-gap: var(--s-10);
+  }
+  .stage {
+    grid-template-columns: 72px 1fr;
+    column-gap: var(--s-5);
+    row-gap: var(--s-1);
+    padding-top: 0;
+  }
+  .stage {
+    align-items: center;
+  }
+  .stage__node {
+    margin-bottom: 0;
+  }
+  .stage__title {
+    max-width: none;
+  }
+  .outcome {
+    max-width: 420px;
+  }
+}

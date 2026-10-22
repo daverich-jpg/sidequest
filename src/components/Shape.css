@@ -1,0 +1,92 @@
+.shape {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  fill: currentColor;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.shape svg {
+  overflow: visible;
+}
+
+.shape__spin {
+  transform-box: view-box;
+  transform-origin: 40px 40px;
+  transform: rotate(var(--turn, 0deg));
+  transition: transform var(--bouncy-dur) var(--bouncy);
+}
+
+/* ---------- Flower: bloom ---------- */
+
+.shape__petal {
+  transition: transform var(--spring-dur) var(--spring);
+  transition-delay: calc(var(--i) * 14ms);
+}
+
+.shape--flower.is-hot .shape__petal {
+  transform: translateY(-5px);
+}
+
+/* ---------- Pinwheel: part, then turn as one ---------- */
+
+.shape__q {
+  transition: transform var(--spring-dur) var(--spring);
+}
+
+.shape--pinwheel.is-hot .shape__q--0 { transform: translate(-4px, 4px); }
+.shape--pinwheel.is-hot .shape__q--1 { transform: translate(4px, 4px); }
+.shape--pinwheel.is-hot .shape__q--2 { transform: translate(-4px, -4px); }
+.shape--pinwheel.is-hot .shape__q--3 { transform: translate(4px, -4px); }
+
+/* ---------- Crescent: become whole ---------- */
+
+.shape__bite {
+  transform-box: view-box;
+  transform-origin: 75px 10px;
+  transform: scale(0);
+  transition: transform var(--spring-dur) var(--spring);
+}
+
+.shape--crescent .shape__spin {
+  transform-origin: 40px 40px;
+  transition: transform var(--bouncy-dur) var(--bouncy);
+}
+
+.shape--crescent.is-hot .shape__bite {
+  transform: scale(1);
+}
+
+.shape--crescent.is-hot .shape__spin {
+  transform: rotate(-12deg);
+}
+
+/* ---------- Quest-box tile (section marks) ---------- */
+
+.shape--tile {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-tag);
+  background: var(--lime);
+  color: var(--violet);
+  transition: transform var(--spring-dur) var(--spring);
+}
+
+.shape--tile.is-hot {
+  transform: scale(1.06);
+}
+
+@media (hover: hover) {
+  .shape {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shape__spin,
+  .shape__petal,
+  .shape__q,
+  .shape__bite {
+    transition-duration: 1ms;
+  }
+}

@@ -1,0 +1,78 @@
+/*
+  Sidequest tokens — extracted from the hero (Figma 1364:884).
+  Values marked "hero" are sampled 1:1; everything else is derived from them.
+*/
+:root {
+  /* Colour — hero */
+  --ink: #1d1f2e;              /* page + hero background */
+  --ink-raised: #2c2f45;       /* search field surface */
+  --cream: #f5f0e6;            /* display + primary text */
+  --cream-72: rgba(245, 240, 230, 0.72); /* body copy on ink */
+  --lime: #c8f36b;             /* primary action, the quest box */
+  --violet: #605fe2;           /* the three glyphs */
+
+  /* Colour — derived */
+  --ink-line: rgba(245, 240, 230, 0.12);    /* hairlines on ink */
+  --ink-line-strong: rgba(245, 240, 230, 0.24);
+  --cream-48: rgba(245, 240, 230, 0.56);    /* tertiary text on ink (AA at 14px) */
+  --ink-72: rgba(29, 31, 46, 0.72);         /* body copy on cream / lime */
+  --ink-12: rgba(29, 31, 46, 0.12);         /* hairlines on cream */
+  --ink-06: rgba(29, 31, 46, 0.06);
+  --cream-sunk: #ebe4d6;                    /* inset surface on cream */
+  --violet-deep: #5a59dc;                   /* violet behind small cream text (4.7:1) */
+  --violet-ink: #4746c4;                    /* violet text on cream (AA) */
+  --violet-soft: #8c8bff;                   /* violet text on ink (AA) */
+  --danger: #ff8a7a;                        /* "wrong" verdicts on ink */
+
+  /* Type — hero: Excon Medium for display, Archivo Medium for UI */
+  --font-display: "Excon", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --track: -0.02em;            /* hero uses -2% on every size */
+
+  --d1: clamp(40px, 10.6vw, 96px);   /* hero headline: 96/102 */
+  --d2: clamp(38px, 5.2vw, 68px);
+  --d3: clamp(32px, 4.4vw, 56px);
+  --d4: clamp(22px, 2.2vw, 28px);
+  --t-body: 14px;              /* hero: 14/24 */
+  --t-lead: 16px;
+  --t-small: 12px;
+
+  /* Space — the hero sits on a 4px grid: 8 12 16 20 24 40 */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-16: 64px;
+  --s-24: 96px;
+  --section-y: clamp(80px, 11vw, 160px);
+  --gutter: clamp(16px, 3.2vw, 40px);  /* hero: 40px side padding */
+  --content: 1200px;                    /* 1280 frame − 2 × 40 */
+
+  /* Shape — hero */
+  --r-tag: 8px;      /* the quest box */
+  --r-btn: 16px;     /* primary button */
+  --r-panel: 20px;   /* the frame */
+  --r-pill: 40px;    /* search field */
+
+  /* Motion — snappy enter, swift exit */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-enter: 240ms;
+  --dur-exit: 150ms;
+  --dur-reveal: 700ms;
+
+  /* Real spring curves (CSS linear(), sampled from a mass-spring sim).
+     Duration = time for the spring to settle; use them on transitions so
+     hover in/out stays interruptible. */
+  --spring: linear(0, 0.0271, 0.0816, 0.1551, 0.24, 0.3303, 0.4215, 0.51, 0.5932, 0.6697, 0.7383, 0.7987, 0.8507, 0.9004, 0.9358, 0.9644, 0.9869, 1.0041, 1.0167, 1.0255, 1.031, 1.0341, 1.0351, 1.0346, 1.033, 1.0302, 1.0273, 1.0241, 1.0209, 1.0178, 1.0148, 1.0121, 1.0096, 1.0075, 1.0056, 1.004, 1.0027, 1.0014, 1.0006, 1);
+  --spring-dur: 570ms;          /* k 300, c 25 — UI state changes */
+  --bouncy: linear(0, 0.0435, 0.1499, 0.2823, 0.4454, 0.5974, 0.7533, 0.8793, 0.9928, 1.0789, 1.1337, 1.1694, 1.1828, 1.1803, 1.1663, 1.1424, 1.1134, 1.0854, 1.0558, 1.0313, 1.0086, 0.9922, 0.9791, 0.9714, 0.9671, 0.9664, 0.9682, 0.972, 0.9766, 0.9822, 0.9873, 0.9925, 0.9969, 1.0003, 1.003, 1.0048, 1.0058, 1.0062, 1.006, 1.0055, 1.0047, 1.0037, 1.0027, 1.0017, 1.0009, 1.0002, 0.9997, 0.9992, 1);
+  --bouncy-dur: 920ms;          /* k 220, c 14 — the shapes */
+  --soft: linear(0, 0.0228, 0.0692, 0.1302, 0.1992, 0.2712, 0.3429, 0.4122, 0.4846, 0.5447, 0.5997, 0.6495, 0.6942, 0.734, 0.7693, 0.8004, 0.8305, 0.854, 0.8744, 0.8922, 0.9076, 0.9209, 0.9324, 0.9422, 0.9516, 0.9587, 0.9649, 0.9701, 0.9746, 0.9784, 0.9817, 0.9845, 0.9871, 0.989, 0.9907, 0.9921, 0.9933, 0.9944, 0.9952, 0.996, 0.9967, 0.9972, 0.9976, 0.998, 0.9983, 0.9986, 0.9988, 0.999, 1);
+  --soft-dur: 730ms;            /* k 170, c 26 — big, heavy things */
+}

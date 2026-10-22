@@ -1,0 +1,127 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 40px;
+  padding: var(--s-2) var(--s-3);
+  border: 0;
+  border-radius: var(--r-btn);
+  background: none;
+  font-size: var(--t-body);
+  line-height: 24px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-enter) var(--ease-out),
+    transform var(--dur-enter) var(--ease-out),
+    color var(--dur-enter) var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary {
+  min-width: 96px;
+  padding-inline: var(--s-5);
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.btn--primary:hover {
+  background: #d6f88a;
+}
+
+.btn--ink {
+  padding-inline: var(--s-5);
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.btn--ink:hover {
+  background: var(--ink-raised);
+}
+
+.btn--ghost {
+  color: var(--cream);
+  border-radius: var(--r-panel);
+}
+
+.btn--ghost:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.on-light .btn--ghost {
+  color: var(--ink);
+}
+
+/* ---------- Section head ---------- */
+
+.section-head {
+  display: grid;
+  gap: var(--s-5);
+  justify-items: start;
+}
+
+.section-head .lead {
+  margin-top: var(--s-1);
+}
+
+/* Section-head entrance: the tile springs in, words rise, the line follows.
+   Uses individual transform properties so hover (transform) stays free. */
+/* The hero's quest box in miniature: all three shapes. */
+.shape-trio {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 48px;
+  padding: 0 12px;
+  border-radius: var(--r-tag);
+  background: var(--lime);
+  color: var(--violet);
+}
+
+.js .section-head > .shape,
+.js .section-head > .shape-trio {
+  opacity: 0;
+  scale: 0.4;
+  rotate: -45deg;
+  transition:
+    opacity 300ms var(--ease-out),
+    scale var(--bouncy-dur) var(--bouncy),
+    rotate var(--bouncy-dur) var(--bouncy),
+    transform var(--spring-dur) var(--spring);
+}
+
+.js .is-in .section-head > .shape,
+.js .is-in .section-head > .shape-trio {
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+}
+
+.js .section-head .lead {
+  opacity: 0;
+  translate: 0 10px;
+  transition:
+    opacity 700ms var(--ease-out) 380ms,
+    translate 900ms var(--ease-out) 380ms;
+}
+
+.js .is-in .section-head .lead {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .section-head > .shape,
+  .js .section-head > .shape-trio,
+  .js .section-head .lead {
+    scale: 1;
+    rotate: 0deg;
+    translate: 0 0;
+  }
+}
